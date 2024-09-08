@@ -1,12 +1,33 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import LoadingAnimation from "./components/LoadingAnimation";
+import Header from "./components/Header";
+import Articles from "./components/Articles";
+import AboutMe from "./components/AboutMe";
+import Projects from "./components/Projects";
+import Contact from "./components/Contact";
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
+
+  const handleLoadComplete = () => {
+    setLoading(false);
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <hi className="text-4xl font-bold text-center sm:text-left">Hello, I'm <span className="text-[var(--geist-foreground)]">Priyanka</span></hi>
-      </main>
-        
-    </div>
+    <>
+      {loading ? (
+        <LoadingAnimation onLoaded={handleLoadComplete} />
+      ) : (
+        <main className="min-h-screen bg-white">
+          <Header />
+          <Articles />
+          <AboutMe />
+          <Projects />
+          <Contact />
+        </main>
+      )}
+    </>
   );
 }
